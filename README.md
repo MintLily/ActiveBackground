@@ -23,7 +23,7 @@ enabled - Apply the Blur effect
 Toggle on/off in-game without restarting with [UIExpansionKit](https://github.com/knah/VRCMods)
 
 ### Preview
-![Preview GIF](https://kortyboi.com/img/upload/yQjZZqXuNa.gif)
+![Preview Full Screen Menu](https://kortyboi.com/img/upload/msedge_FsrEHINPVV.jpg)
 ![Preview QuickMenu](https://kortyboi.com/img/upload/VRChat_rWYlYdetQz.jpg)
 
 # Change Log
