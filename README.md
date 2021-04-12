@@ -1,0 +1,31 @@
+# ActiveBackground
+Adds an active blur effect to the background of your UI menus (QuickMenu and "FullScreen" Menus)
+
+### MelonLoader
+Need to install MelonLoader?<br>
+Click [this link](https://melonwiki.xyz/) to get started!
+
+### Prerequisites
+MelonLoader: v0.3.0 (Alpha)<br>
+Game: VRChat Build 1069+
+
+### Optional Prerequisites
+[UIExpansionKit](https://github.com/knah/VRCMods)
+
+### MelonPreferences (Default Values)
+```
+[ActiveBackground]
+enabled = true
+```
+enabled - Apply the Blur effect
+
+### Features
+Toggle on/off in-game without restarting with [UIExpansionKit](https://github.com/knah/VRCMods)
+
+### Preview
+![Preview GIF](https://kortyboi.com/img/upload/yQjZZqXuNa.gif)
+![Preview QuickMenu](https://kortyboi.com/img/upload/VRChat_rWYlYdetQz.jpg)
+
+# Change Log
+### v1.0.0
+* Initial Release<br>
