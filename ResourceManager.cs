@@ -17,7 +17,7 @@ namespace ActiveBackground
     class ResourceManager
     {
 		private static AssetBundle Bundle;
-        public static Material BlurGoBrrr;
+        public static Material BlurGoBrrr, BlurLite;
 
         private static Material LoadMateral(string assetToLoad)
         {
@@ -40,6 +40,7 @@ namespace ActiveBackground
                     Bundle = AssetBundle.LoadFromMemory_Internal(memoryStream.ToArray(), 0);
                     Bundle.hideFlags |= HideFlags.DontUnloadUnusedAsset;
                     try { BlurGoBrrr = LoadMateral("BlurGoBrr.mat"); } catch { MelonLogger.Error("Custom Material failed"); }
+                    try { BlurLite = LoadMateral("Blur Lite.mat"); } catch { MelonLogger.Error("Alt Custom Material failed"); }
                 }
             }
 
