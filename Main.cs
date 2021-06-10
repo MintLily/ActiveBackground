@@ -2,6 +2,8 @@ using MelonLoader;
 using UnityEngine;
 using System;
 using System.Collections;
+using System.Reflection;
+using System.Linq;
 using UnityEngine.UI;
 using UIExpansionKit.API;
 using System.Windows.Forms;
@@ -13,10 +15,10 @@ namespace ActiveBackground
     public static class BuildInfo
     {
         public const string Name = "ActiveBackground";
-        public const string Author = "Korty (Lily)";
+        public const string Author = "Lily";
         public const string Company = null;
-        public const string Version = "1.0.0";
-        public const string DownloadLink = "https://github.com/KortyBoi/ActiveBackground";
+        public const string Version = "1.0.1";
+        public const string DownloadLink = "https://github.com/MintLily/ActiveBackground";
         public const string Description = "Add an Active Blur to your menu's background.";
     }
 
@@ -36,22 +38,20 @@ namespace ActiveBackground
                 isDebug = true;
                 MelonLogger.Msg("Debug mode is active");
             }
-            
+
+            if (typeof(MelonMod).GetMethod("VRChat_OnUiManagerInit") == null)
+                MelonCoroutines.Start(GetAssembly());
+
             melon = MelonPreferences.CreateCategory(BuildInfo.Name, BuildInfo.Name);
             enabled = (MelonPreferences_Entry<bool>)melon.CreateEntry("enabled", true, "Apply Background Blur Effects");
             altBlur = (MelonPreferences_Entry<bool>)melon.CreateEntry("useAlternativeBlur", false, "Use alternate blur (VR Blur Shader)\n(No affect in VR)");
-
+            ResourceManager.Init();
             MelonLogger.Msg("Initialized!");
         }
 
-        public override void VRChat_OnUiManagerInit()
-        {
-            ResourceManager.Init();
+        private void OnUiManagerInit() => MelonCoroutines.Start(DelayedAction());
 
-            MelonCoroutines.Start(DelayedAction());
-        }
-
-        public override void OnPreferencesSaved() { MelonCoroutines.Start(Setup()); }
+        public override void OnPreferencesSaved() => MelonCoroutines.Start(Setup());
 
         public override void OnSceneWasInitialized(int buildIndex, string sceneName)
         {
@@ -115,6 +115,29 @@ namespace ActiveBackground
                 InfoBarBackground.GetComponent<Image>().material = OriginalInfoBarMat;
             }
             yield break;
+        }
+
+        private IEnumerator GetAssembly()
+        {
+            Assembly assemblyCSharp = null;
+            while (true) {
+                assemblyCSharp = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(assembly => assembly.GetName().Name == "Assembly-CSharp");
+                if (assemblyCSharp == null)
+                    yield return null;
+                else
+                    break;
+            }
+
+            MelonCoroutines.Start(WaitForUiManagerInit(assemblyCSharp));
+        }
+
+        private IEnumerator WaitForUiManagerInit(Assembly assemblyCSharp)
+        {
+            Type vrcUiManager = assemblyCSharp.GetType("VRCUiManager");
+            PropertyInfo uiManagerSingleton = vrcUiManager.GetProperties().First(pi => pi.PropertyType == vrcUiManager);
+            while (uiManagerSingleton.GetValue(null) == null)
+                yield return null;
+            OnUiManagerInit();
         }
     }
 }

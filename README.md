@@ -6,14 +6,14 @@ Need to install MelonLoader?<br>
 Click [this link](https://melonwiki.xyz/) to get started!
 
 ### Prerequisites
-MelonLoader: v0.3.0 (Alpha)<br>
-Game: VRChat Build 1069+
+MelonLoader: v0.4.0 (Alpha)<br>
+Game: VRChat Build 1102+
 
 ### Optional Prerequisites
 [UIExpansionKit](https://github.com/knah/VRCMods)
 
 ### MelonPreferences (Default Values)
-```
+```ini
 [ActiveBackground]
 enabled = true
 ```
@@ -27,5 +27,8 @@ Toggle on/off in-game without restarting with [UIExpansionKit](https://github.co
 ![Preview QuickMenu](https://kortyboi.com/img/upload/VRChat_rWYlYdetQz.jpg)
 
 # Change Log
+### v1.0.1
+* Updated to Support MelonLoader v0.4.0
+
 ### v1.0.0
 * Initial Release<br>
